@@ -1,0 +1,30 @@
+Subir y Procesar Imágenes
+Esta es una aplicación web simple desarrollada con Python y Flask que permite a los usuarios subir imágenes, especificar la calidad de compresión y descargar automáticamente la imagen procesada.
+
+Desarrollo
+La aplicación fue desarrollada utilizando las siguientes herramientas y tecnologías:
+
+Python: Lenguaje de programación utilizado para el backend de la aplicación.
+Flask: Framework de Python utilizado para construir la aplicación web.
+HTML/CSS/JavaScript: Utilizados para el frontend de la aplicación y la interfaz de usuario.
+Pillow: Librería de Python utilizada para procesar y comprimir imágenes.
+UUID: Librería de Python para generar identificadores únicos para nombres de archivo.
+
+
+La aplicación ofrece las siguientes funcionalidades:
+
+Subir Imágenes: Los usuarios pueden seleccionar imágenes desde sus dispositivos y cargarlas en la aplicación.
+Especificar Calidad: Los usuarios pueden especificar la calidad de compresión de las imágenes antes de procesarlas.
+Procesamiento Automático: Las imágenes se procesan automáticamente en el servidor después de ser cargadas.
+Descarga Automática: Las imágenes procesadas se descargan automáticamente en el navegador del usuario.
+Interfaz Intuitiva: La aplicación cuenta con una interfaz de usuario simple y fácil de usar.
+Ejecución Local
+Para ejecutar la aplicación localmente, sigue estos pasos:
+
+Clona este repositorio en tu máquina local.
+Asegúrate de tener Python instalado en tu sistema.
+Instala las dependencias del proyecto ejecutando pip install -r requirements.txt.
+Ejecuta la aplicación con el comando python app.py.
+Abre tu navegador web y visita http://localhost:5000 para acceder a la aplicación.
+Contribución
+Si deseas contribuir a este proyecto, ¡siéntete libre de hacerlo! Puedes abrir problemas para informar sobre errores o solicitar nuevas funcionalidades. También puedes enviar solicitudes de extracción con mejoras al código.

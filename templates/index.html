@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir y Procesar Imágenes</title>
+    <style>
+        /* Estilos CSS para el diseño de la página */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 15px; /* Padding para pantallas pequeñas */
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px; /* Ancho máximo para el contenedor */
+        }
+        input[type="file"], input[type="number"] {
+            width: 100%; /* Ancho completo */
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%; /* Ancho completo */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        label {
+            margin-top: 10px;
+            display: block; /* Hacer que las etiquetas ocupen toda la línea para mejor estructura */
+        }
+        h1 {
+            text-align: center; /* Centrar el título */
+        }
+        .instructions {
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            text-align: justify; /* Justificar el texto de las instrucciones */
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Título de la página -->
+        <h1>Subir y Procesar Imágenes</h1>
+        <!-- Instrucciones para el usuario -->
+        <p class="instructions">
+            Para usar esta herramienta, selecciona un archivo de imagen desde tu computadora y especifica la calidad deseada de la imagen. 
+            Presiona el botón "Subir" para procesar y descargar automáticamente la imagen en el nivel de calidad elegido. 
+            Puedes subir archivos JPEG, PNG o GIF. Ajusta la configuración de calidad (1-100) para controlar el nivel de compresión.
+        </p>
+        <!-- Formulario para subir imágenes -->
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" name="file" id="file-input">
+            <label for="quality">Calidad (1-100):</label>
+            <input type="number" id="quality" name="quality" min="1" max="100" value="90">
+            <button type="button" onclick="uploadImage()">Subir</button>
+        </form>
+    </div>
+    <!-- Script JavaScript para manejar la carga y descarga de imágenes -->
+    <script>
+        function uploadImage() {
+            // Creamos un objeto FormData para enviar los datos del formulario
+            var formData = new FormData();
+            formData.append('file', document.getElementById('file-input').files[0]);
+            formData.append('quality', document.getElementById('quality').value);
+
+            // Enviamos la solicitud POST al servidor utilizando fetch
+            fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            })
+            // Procesamos la respuesta JSON del servidor
+            .then(response => response.json())
+            .then(data => {
+                // Descargamos la imagen procesada utilizando la URL proporcionada por el servidor
+                downloadImage(data.url);
+                // Restablecemos el valor del input de archivo para nuevas cargas
+                document.getElementById('file-input').value = '';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Función para descargar la imagen utilizando la URL proporcionada
+        function downloadImage(url) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = url.split('/').pop(); // Suponiendo que la URL termina con el nombre de archivo
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
+
